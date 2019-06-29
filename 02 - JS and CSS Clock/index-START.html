@@ -62,13 +62,41 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.21, 2.93, 0.5, 1)
     }
 
   </style>
 
   <script>
 
+    const hourHand = document.querySelector(".hour-hand"); // Selects the hour hand
+    const minuteHand = document.querySelector(".min-hand"); // Selects the minute hand
+    const secondHand = document.querySelector(".second-hand"); // Selects the second hand
 
+    let updateTime = () => {
+      
+      const now = new Date(); // Create a variable with present time
+
+      let seconds = now.getSeconds(); // get values of seconds using Data Prototype
+      let secondInDegress = 90 + (seconds / 60) * 360; // Calculate the degrees to rotate second Hand 
+      secondHand.style.transform = `rotate(${secondInDegress}deg)`; // Rotate the second Hand according to present Seconds
+
+      let minutes = now.getMinutes(); // get values of minutes using Data Prototype
+      let minuteInDegress = 90 + (minutes / 60) * 360; // Calculate the degrees to rotate minute Hand 
+      minuteHand.style.transform = `rotate(${minuteInDegress}deg)`; // Rotate the minute Hand according to present minutes
+
+      let hours = now.getHours(); // get values of hours using Data Prototype
+      let hourInDegress = 90 + (hours / 12) * 360; // Calculate the degrees to rotate hour Hand 
+      hourHand.style.transform = `rotate(${hourInDegress}deg)`; // Rotate the hour Hand according to present Hours
+
+    }
+
+    window.setInterval(updateTime, 1000); // Set an interval of 1 sec in executing setDate Function
+
+    updateTime(); // Executing the function when the page is loaded
   </script>
 </body>
 </html>
